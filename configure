@@ -2856,9 +2856,11 @@ if test x"${PYTHON_LDVERSION}" = x""; then
     PYTHON_LDVERSION=${PYTHON_VERSION}
 fi
 
-CPPFLAGS1=`${PYTHON} -c 'from sys import stdout; \
-    from distutils import sysconfig; \
-    stdout.write("-I" + sysconfig.get_config_var("INCLUDEPY"))'`
+if test "$cross_compiling" != yes; then
+    CPPFLAGS1=`${PYTHON} -c 'from sys import stdout; \
+        from distutils import sysconfig; \
+        stdout.write("-I" + sysconfig.get_config_var("INCLUDEPY"))'`
+fi
 
 CPPFLAGS2=`${PYTHON} -c 'from sys import stdout; \
     from distutils import sysconfig; \
