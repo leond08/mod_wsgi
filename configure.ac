@@ -154,8 +154,7 @@ if test "${PYTHON_LDVERSION}" != "${PYTHON_VERSION}"; then
     PYTHONCFGDIR="${PYTHONCFGDIR}-${PYTHON_LDVERSION}"
 fi
 
-if test "$cross_compiling" != yes && \
-        "${PYTHONFRAMEWORKDIR}" = "no-framework" -o \
+if test "${PYTHONFRAMEWORKDIR}" = "no-framework" -o \
         "${ENABLE_FRAMEWORK}" != "yes"; then
     LDFLAGS1="-L${PYTHONLIBDIR}"
     LDFLAGS2="-L${PYTHONCFGDIR}"
