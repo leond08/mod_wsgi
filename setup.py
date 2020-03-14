@@ -30,6 +30,8 @@ from distutils.sysconfig import get_python_lib
 # OpenShift. If we are, then we identify the set of precompiled binaries
 # we are to use and copy it into the Python installation.
 
+# Check if we are cross compiling
+cross_compiling = "_PYTHON_HOST_PLATFORM" in os.environ
 PREFIX = 'https://s3.amazonaws.com'
 BUCKET = os.environ.get('MOD_WSGI_REMOTE_S3_BUCKET_NAME', 'modwsgi.org')
 
@@ -439,7 +441,12 @@ if os.name == 'nt':
 else:
     PYTHON_LDVERSION = get_python_config('LDVERSION') or PYTHON_VERSION
 
-    PYTHON_LIBDIR = os.environ.get('LIBDIR')
+    # Let's check if we are cross compiling then set the correct headers
+    if not cross_compiling:
+        PYTHON_LIBDIR = get_python_config('LIBDIR')
+    else:
+        PYTHON_LIBDIR = os.environ.get('LIBDIR')
+
     PYTHON_CFGDIR =  get_python_lib(plat_specific=1, standard_lib=1) + '/config'
 
     if PYTHON_LDVERSION and PYTHON_LDVERSION != PYTHON_VERSION:
