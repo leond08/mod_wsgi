@@ -439,7 +439,7 @@ if os.name == 'nt':
 else:
     PYTHON_LDVERSION = get_python_config('LDVERSION') or PYTHON_VERSION
 
-    PYTHON_LIBDIR = get_python_config('LIBDIR')
+    PYTHON_LIBDIR = os.environ.get('LIBDIR')
     PYTHON_CFGDIR =  get_python_lib(plat_specific=1, standard_lib=1) + '/config'
 
     if PYTHON_LDVERSION and PYTHON_LDVERSION != PYTHON_VERSION:
